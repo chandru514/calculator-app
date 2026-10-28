@@ -32,8 +32,8 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }} .
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }}
+        docker build -t chandru514/calculator-app:${{ github.sha }} .
+        docker push chandru514/calculator-app:${{ github.sha }}
 
     - name: Set up Kubeconfig
       run: |
@@ -42,7 +42,7 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        sed -i "s/DOCKERHUB_USERNAME/${{ secrets.DOCKERHUB_USERNAME }}/g" Deployment/deployment.yaml
-        sed -i "s/IMAGE_TAG/${{ github.sha }}/g" Deployment/deployment.yaml
+        sed -i "s/DOCKERHUB_USERNAME/chandru514/g" Deployment/deployment.yaml
+        sed -i "s/IMAGE_TAG/${{ github.sha }}//g" Deployment/deployment.yaml
         kubectl apply -f Deployment/deployment.yaml
         kubectl apply -f Deployment/service.yaml
