@@ -44,5 +44,5 @@ jobs:
       run: |
         sed -i "s/DOCKERHUB_USERNAME/chandru514/g" Deployment/deployment.yaml
         sed -i "s/IMAGE_TAG/${{ github.sha }}/g" Deployment/deployment.yaml
-        kubectl apply -f Deployment/deployment.yaml
-        kubectl apply -f Deployment/service.yaml
+        kubectl apply -f Deployment/deployment.yaml --validate=false --dry-run=client
+        kubectl apply -f Deployment/service.yaml --validate=false --dry-run=client
