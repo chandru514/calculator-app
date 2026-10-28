@@ -31,11 +31,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and Push Docker Image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }}
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }} .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }}
 
     - name: Set up Kubeconfig
       run: |
